@@ -1,0 +1,54 @@
+<div class="container">
+
+  <h1>💰 Expense Tracker</h1>
+
+  <!-- Input Card -->
+  <div class="card">
+    <input [(ngModel)]="title" placeholder="Enter title">
+
+    <input type="number" [(ngModel)]="amount" placeholder="Enter amount">
+
+    <select [(ngModel)]="type">
+      <option value="income">Income</option>
+      <option value="expense">Expense</option>
+    </select>
+
+    <button (click)="addTransaction()">Add Transaction</button>
+  </div>
+
+  <!-- Summary -->
+  <div class="summary">
+    <div class="box income">
+      Income <br> ₹{{ getTotalIncome() }}
+    </div>
+
+    <div class="box expense">
+      Expense <br> ₹{{ getTotalExpense() }}
+    </div>
+
+    <div class="box balance">
+      Balance <br> ₹{{ getBalance() }}
+    </div>
+  </div>
+
+  <!-- Transaction List -->
+  <div class="history">
+    <h3>Transactions</h3>
+
+    <ul>
+      <li *ngFor="let t of transactions; let i = index">
+
+        <span [class.income-text]="t.type==='income'"
+              [class.expense-text]="t.type==='expense'">
+          {{ t.title }} - ₹{{ t.amount }}
+        </span>
+
+        <button class="delete-btn" (click)="deleteTransaction(i)">❌</button>
+
+      </li>
+    </ul>
+
+    <p *ngIf="transactions.length === 0">No transactions yet</p>
+  </div>
+
+</div>
